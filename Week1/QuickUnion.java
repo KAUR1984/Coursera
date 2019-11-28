@@ -51,10 +51,6 @@ public class QuickUnion {
             else{
                 System.out.println(p + " "+ q + " are already connected!");
             }
-
         }
-
-
     }
-
 }
