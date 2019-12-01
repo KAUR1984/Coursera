@@ -4,62 +4,40 @@ import java.util.Scanner;
 
 public class Anonymous {
 
-    int[] id;
-    int[] size;
-    public Anonymous(int n){  //n is no of objects
-        id = new int[n];
-        size = new int[n];
-        for(int i = 0; i < id.length; i++) {
-            id[i] = i;
-        }
+    public int search(int[] a, int key){
+        int lo = 0;
+        int hi = a.length-1;
 
-        for(int i = 0; i < size.length; i++) {
-            size[i] = i;
+        while(lo <= hi){
+            int mid = (lo + hi)/2;
+            if(a[mid] < key) {
+                lo = mid + 1;
+            }else if(a[mid] > key){
+                //search on the left hand side
+                hi = mid-1;
+            }else{   //if a[mid] == key
+                return mid;    //return the mid index
+            }
         }
+        return -1;   //the key is not present
     }
 
-    //find the root. id represents the parent
-    private int root(int i) {
-        while(id[i] != i) {
-            i = id[i];
-        }
-        return i;
-    }
-
-    public boolean connected(int p, int q){
-        return (root(p) == root(q));
-    }
-
-    //assume not connected initially, ie the roots are not same
-    public void union(int p, int q){
-        //make the parent of the root of the second one, with that of the root of the first one
-        if(size[p] < size[q]) {
-            id[root(p)] = root(q);
-            size[q] += size[p];
-        }else{
-            id[root(q)] = root(p);
-            size[p] += size[q];
-        }
-    }
-
-    //DYNAMIC CONNECTIVITY CLIENT
     public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);   //number of objs are inputted
-        int noOfObjects = in.nextInt();
-
-        Anonymous uf = new Anonymous(noOfObjects);
-
-        while(in.hasNext()) {
-            int p = in.nextInt();
-            int q = in.nextInt();
-
-            if(!uf.connected(p,q)) {
-                uf.union(p,q);
-                System.out.println(p + " " + q + " are now connected!");
-            }
-            else{
-                System.out.println(p + " " + q + " are already connected!");
-            }
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter the size of the array");
+        int n = in.nextInt();
+        int[] a = new int[n];
+        System.out.println("Enter the sorted array : ");
+        for(int i =0; i <n; i++) {
+            a[i] = in.nextInt();   //inputted the array
         }
+
+        System.out.println("Enter the key :");
+        int key = in.nextInt();
+
+        Anonymous bs = new Anonymous();
+        System.out.println("key found at index : " + (bs.search(a,key)));
+
     }
+
 }
