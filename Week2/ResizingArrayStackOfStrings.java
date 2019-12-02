@@ -37,14 +37,20 @@ public class ResizingArrayStackOfStrings {
     }
 
     public String pop(){
+        //resize the array to half if it one quarter full to half
         pointer--;
         if(pointer < 0){
-            throw new IndexOutOfBoundsException("The array is underflowed; tried to access index less than 0");
+            throw new IndexOutOfBoundsException("The array is under-flowed; tried to access index less than 0");
         }
         String rtn = a[pointer];
         a[pointer] = null;   //To avoid loitering
-        return rtn;
 
+        //if after popping the given element, the array is quarter-full
+        //then resize it! Otherwise 1 more size would be made, if before popping, we resize
+        if(pointer <= a.length/4){
+            resize(a.length/2);    //resize to half
+        }
+        return rtn;
     }
 
     public boolean isEmpty(){
