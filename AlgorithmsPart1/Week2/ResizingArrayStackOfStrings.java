@@ -1,4 +1,4 @@
-package Coursera.Week2;
+package Coursera.AlgorithmsPart1.Week2;
 
 import java.util.Scanner;
 
